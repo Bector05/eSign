@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eSign</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="signature.png" />
+  </head>
+  <body>
+    <h1 class="text-3xl md:text-5xl lg:text-7xl text-center">eSign</h1>
+
+    <div class="flex mt-2 py-4 justify-center items-center">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-11 text-center"
+      >
+        <div>
+          <p class="text-lg mb-2">Brush color</p>
+          <input
+            class="w-full sm:w-48 h-8 border-2 border-solid"
+            type="color"
+            id="brush-colour"
+          />
+        </div>
+        <div>
+          <p class="text-lg mb-2">Background</p>
+          <input
+            class="w-full sm:w-48 h-8 border-2 border-solid"
+            type="color"
+            id="bgc"
+          />
+        </div>
+        <div>
+          <p class="text-lg mb-2">Size</p>
+          <select
+            class="w-full sm:w-48 h-8 border-2 border-solid"
+            id="brush-size"
+          >
+            <option value="5">5px</option>
+            <option value="10">10px</option>
+            <option value="20">20px</option>
+            <option value="30">30px</option>
+            <option value="40">40px</option>
+            <option value="50">50px</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center items-center">
+      <canvas
+        class="border-2 border-solid w-full h-64 md:w-3/4 md:h-72 lg:w-10/12 lg:h-1/4"
+        id="myCanvas"
+      ></canvas>
+    </div>
+
+    <div class="flex py-4 justify-center items-center">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 lg:gap-11 text-center"
+      >
+        <div>
+          <button
+            class="w-full sm:w-48 h-8 bg-red-600 rounded text-white"
+            id="clear"
+          >
+            Clear
+          </button>
+        </div>
+        <div>
+          <button
+            class="w-full sm:w-48 h-8 bg-lime-600 rounded text-white"
+            id="save"
+          >
+            Save & Download
+          </button>
+        </div>
+        <div>
+          <button class="w-full sm:w-48 h-8 bg-yellow-300 rounded" id="rtr">
+            Retrieve saved signature
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
