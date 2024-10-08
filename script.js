@@ -75,6 +75,7 @@ save.addEventListener('click', () => {
   link.click();
 });
 
+
 rtr.addEventListener('click', () => {
   let savedData = localStorage.getItem('eSign-canvas');
   
