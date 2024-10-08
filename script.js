@@ -16,22 +16,35 @@ function setCanvasSize() {
   const canvasStyle = getComputedStyle(myCanvas);
   const canvasWidth = parseInt(canvasStyle.width);
   const canvasHeight = parseInt(canvasStyle.height);
+
+  
   myCanvas.width = canvasWidth;
   myCanvas.height = canvasHeight;
 }
 
 setCanvasSize();
 window.addEventListener('resize', setCanvasSize);
+
+
+function getTouchPosition(touchEvent) {
+  const rect = myCanvas.getBoundingClientRect();
+  return {
+    x: (touchEvent.touches[0].clientX - rect.left) * (myCanvas.width / rect.width),
+    y: (touchEvent.touches[0].clientY - rect.top) * (myCanvas.height / rect.height),
+  };
+}
+
+
 brushColor.addEventListener('change', (e) => {
   cntx.strokeStyle = e.target.value;
 });
+
 
 myCanvas.addEventListener('mousedown', (e) => {
   isDrawing = true;
   lastX = e.offsetX * (myCanvas.width / myCanvas.clientWidth); // Adjust for canvas scaling
   lastY = e.offsetY * (myCanvas.height / myCanvas.clientHeight);
 });
-
 
 myCanvas.addEventListener('mousemove', (e) => {
   if (isDrawing) {
@@ -52,18 +65,50 @@ myCanvas.addEventListener('mouseup', () => {
   isDrawing = false;
 });
 
+
+myCanvas.addEventListener('touchstart', (e) => {
+  isDrawing = true;
+  const position = getTouchPosition(e);
+  lastX = position.x;
+  lastY = position.y;
+  e.preventDefault();  
+});
+
+myCanvas.addEventListener('touchmove', (e) => {
+  if (isDrawing) {
+    const position = getTouchPosition(e);
+
+    cntx.beginPath();
+    cntx.moveTo(lastX, lastY);
+    cntx.lineTo(position.x, position.y);
+    cntx.stroke();
+
+    lastX = position.x;
+    lastY = position.y;
+  }
+  e.preventDefault();  
+});
+
+myCanvas.addEventListener('touchend', () => {
+  isDrawing = false;
+});
+
+
 backgroundColor.addEventListener('change', (e) => {
   cntx.fillStyle = e.target.value;
   cntx.fillRect(0, 0, myCanvas.width, myCanvas.height);
 });
 
+
 size.addEventListener('change', (e) => {
   cntx.lineWidth = e.target.value;
 });
 
+
 clear.addEventListener('click', () => {
   cntx.clearRect(0, 0, myCanvas.width, myCanvas.height);
 });
+
 
 save.addEventListener('click', () => {
   const imgData = myCanvas.toDataURL();
